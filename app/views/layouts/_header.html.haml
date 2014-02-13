@@ -1,0 +1,47 @@
+.navbar.navbar-inverse.navbar-fixed-top{ "role" => "navigation" }
+  .container
+    .navbar-header
+      %button.navbar-toggle{ "data-toggle" => "collapse", "data-target" => "#navbar_content" }
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand{ href: root_path, style: "color:white;font-size:32px;" }
+        Daily Read
+
+    #navbar_content.collapse.navbar-collapse
+      -#%ul.nav.navbar-nav
+        %li{ class: @tab == "home" ? "active" : "" }
+          = link_to "Home", root_path
+
+      -#%ul.nav.navbar-nav.navbar-right
+        - if user_signed_in?
+          %li#account_menu.dropdown
+            %a#account_link.dropdown-toggle{ href: "#", onclick: "return false;", "role" => "button", "data-toggle" => "dropdown"}
+              Account
+              %b.caret
+            %ul.dropdown-menu{ "role" => "menu", "aria-labelledby" => "account_link" }
+              %li{ "role" => "presentation" }
+                %a{ "role" => "menuitem", "tabindex" => "-1", href: dashboard_path } Dashboard
+              - if current_organization.present?
+                - if current_user.is_support?
+                  %li{ "role" => "presentation" }
+                    %a{ "role" => "menuitem", "tabindex" => "-1", href: admin_path } Admin
+                - if current_user.is_admin? || current_user.is_support?
+                  %li{ "role" => "presentation" }
+                    %a{ "role" => "menuitem", "tabindex" => "-1", href: users_path } Manage users
+              %li{ "role" => "presentation" }
+                %a{ "role" => "menuitem", "tabindex" => "-1", href: edit_user_path(current_user.id) } My account
+              %li.divider{ "role" => "presentation" }
+                %li{ "role" => "presentation" }
+                  %a{ "role" => "menuitem", "tabindex" => "-1", href: destroy_user_session_path, "data-method" => "delete" } Sign out
+        - else
+          %li{ "role" => "presentation" }
+            %a{ "role" => "menuitem", "tabindex" => "-1", href: new_registration_path(:user) } Sign up
+          %li{ "role" => "presentation" }
+            %a{ "role" => "menuitem", "tabindex" => "-1", href: user_session_path } Sign in
+
+:javascript
+  $(document).ready(function() {
+    $('.dropdown-toggle').dropdown()
+  })

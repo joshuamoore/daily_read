@@ -1,0 +1,16 @@
+- flash.each do |level, message|
+  .container
+    #flash_message{ class: "alert #{flash_class(level)} alert-dismissable" }
+      %p.message_content{ :style => "display:inline" }= message
+      %a{ class: "close", href: "#", onclick: "return false;" } ×
+
+:javascript
+  $('a.close').on('click', function() {
+    $(this).parent().fadeOut();
+  });
+
+  var flash_fade_out = function() {
+    $('.close').parent().fadeOut();
+  }
+
+  setTimeout("flash_fade_out();", 5000);

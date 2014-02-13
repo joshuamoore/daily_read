@@ -1,0 +1,22 @@
+#content
+  %h1= @passage.name
+  %h3
+    Read on:
+    = @passage.read_on.to_s(:date)
+  %p= @passage.content
+
+:javascript
+  $(document).ready(function() {
+    var url = "http://www.esvapi.org/v2/rest/passageQuery?key=371821eef358dc15" +
+      "&passage=[John+1,Genesis+1]&include-footnotes=false&include-footnote-links=false" +
+      "&include-audio-link=false"
+
+    /*
+    $.get(
+      url,
+      function(data) {
+        $("#content").html(data)
+      }
+    )
+    */
+  })

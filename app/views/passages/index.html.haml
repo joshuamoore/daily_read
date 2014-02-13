@@ -1,0 +1,23 @@
+%h1 Listing passages
+
+%table
+  %tr
+    %th Name
+    %th Text
+    %th Read on
+    %th
+    %th
+    %th
+
+  - @passages.each do |passage|
+    %tr
+      %td= passage.name
+      %td= passage.text
+      %td= passage.read_on
+      %td= link_to 'Show', passage
+      %td= link_to 'Edit', edit_passage_path(passage)
+      %td= link_to 'Destroy', passage, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Passage', new_passage_path

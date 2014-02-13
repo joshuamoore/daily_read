@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+%html
+  %head
+    :css
+      table {
+        width: 650px;
+        background-color: #1C9E79;
+        padding: 10px 0px; }
+        table tr td {
+          padding: 10px 15px 20px 15px;
+          font-family: Helvetica, Arial, sans-serif;
+
+          text-align: left; }
+          table tr td table {
+            width: 640px;
+            background-color: #fdfdfd;
+          table tr td p.footer {
+            color: white;
+            font-size: 0.9em; }
+            table tr td p.footer a {
+              color: white; }
+          table tr h1 {
+            color: #073D3;
+            font-size: 1.5em;
+            letter-spacing: -1px;
+            line-height: normal; }
+          table table {
+            padding: 20px 0px; }
+            table table .closing {
+              margin: 0; }
+
+      .light_green {
+        color: #1C9E79;
+      }
+
+      .light_green_background {
+        background-color: #1C9E79;
+      }
+
+      .dark_green {
+        color: #073D30;
+      }
+
+      .dark_green_background {
+        background-color: #073D30;
+      }
+
+      .white {
+        color: white;
+      }
+
+  %body
+    %table
+      %tr
+        %td
+          = render :partial => 'user_mailer/email_header'
+          %table
+            %tr
+              %td
+                = yield
+      %tr
+        %td
+          = render :partial => 'user_mailer/email_footer'

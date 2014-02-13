@@ -1,0 +1,21 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %title Daily Read
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+
+    = csrf_meta_tags
+
+    -#%link{:href => "images/favicon.ico", :rel => "shortcut icon"}/
+
+  %body
+    = render :partial => "layouts/header"
+
+    #flash_message
+      = render :partial => 'layouts/flash', locals: { flash: flash }
+
+    .container
+      = yield
+
