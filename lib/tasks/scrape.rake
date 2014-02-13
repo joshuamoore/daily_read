@@ -48,4 +48,28 @@ namespace :scrape do
 
     puts "done"
   end
+
+  desc "Find content from ESV's API"
+  task week_passages_content: :environment do
+    contentless_passages = Passage.where("passages.name = passages.content OR passages.content IS NULL")
+
+    contentless_passages.each do |passage|
+      stripped_name = passage.name.gsub!(/\s+/, "")
+      reference_array = "[" + stripped_name + "]"
+
+      url = "http://www.esvapi.org/v2/rest/passageQuery?key=371821eef358dc15&passage=" +
+        reference_array + "&include-footnotes=false&include-footnote-links=false" +
+        "&include-audio-link=false"
+
+      content = Net::HTTP.get(URI.parse(URI.encode(url.strip)))
+
+      if content.present?
+        passage.update_attribute(:content, content)
+
+        puts "updated passage for #{reference_array}"
+      end
+    end
+
+    puts "done"
+  end
 end
