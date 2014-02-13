@@ -1,9 +1,12 @@
 #content
-  %h1= @passage.name
-  %h3
-    Read on:
-    = @passage.read_on.to_s(:date)
-  %p= @passage.content
+  - if @passage.present?
+    %h1= @passage.name
+    %h3
+      Read on:
+      = @passage.read_on.to_s(:date)
+    %p= @passage.content
+  - else
+    %h3 Sorry, no passages for today.
 
 :javascript
   $(document).ready(function() {
