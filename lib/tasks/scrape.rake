@@ -51,6 +51,8 @@ namespace :scrape do
 
   desc "Find content from ESV's API"
   task week_passages_content: :environment do
+    require 'net/http'
+
     contentless_passages = Passage.where("passages.name = passages.content OR passages.content IS NULL")
 
     contentless_passages.each do |passage|
